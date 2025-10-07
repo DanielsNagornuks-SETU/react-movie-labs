@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Header from '../components/headerMovieList';
 import FilterCard from "../components/filterMoviesCard";
 
-const HomePage = (props) => {
+function HomePage(props) {
     const [movies, setMovies] = useState([]);
     const [nameFilter, setNameFilter] = useState("");
     const [genreFilter, setGenreFilter] = useState("0");
@@ -22,6 +22,13 @@ const HomePage = (props) => {
     function handleChange(type, value) {
         if (type === "name") setNameFilter(value);
         else setGenreFilter(value);
+    };
+
+    function addToFavorites(movieId) {
+        const updatedMovies = movies.map((m) =>
+            m.id === movieId ? { ...m, favorite: true } : m
+        );
+        setMovies(updatedMovies);
     };
 
     useEffect(() => {
@@ -51,9 +58,10 @@ const HomePage = (props) => {
                         genreFilter={genreFilter}
                     />
                 </Grid>
-                <MovieList movies={displayedMovies} />
+                <MovieList movies={displayedMovies} selectFavorite={addToFavorites} />
             </Grid>
         </Grid>
     );
 };
+
 export default HomePage;
