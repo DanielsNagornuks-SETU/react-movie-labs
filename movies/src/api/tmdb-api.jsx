@@ -29,3 +29,13 @@ export function getMovieImages(id) {
         .then((res) => res.json())
         .then((json) => json.posters);
 };
+
+export function getMovieReviews(id) {
+    return fetch(
+        `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    )
+        .then((res) => res.json())
+        .then((json) => {
+            return json.results;
+        });
+};
