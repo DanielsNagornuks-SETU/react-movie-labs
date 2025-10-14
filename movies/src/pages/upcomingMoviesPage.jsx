@@ -1,14 +1,14 @@
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
-import { getMovies } from "../api/tmdb-api";
+import { getUpcomingMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 
-function HomePage(props) {
+function UpcomingMoviesPage(props) {
 
     const { data, error, isPending, isError } = useQuery({
         queryKey: ['discover'],
-        queryFn: getMovies,
+        queryFn: getUpcomingMovies,
     })
 
     if (isPending) {
@@ -28,7 +28,7 @@ function HomePage(props) {
 
     return (
         <PageTemplate
-            title="Discover Movies"
+            title="Upcoming Movies"
             movies={movies}
             action={(movie) => {
                 return <AddToFavoritesIcon movie={movie} />
@@ -36,4 +36,4 @@ function HomePage(props) {
         />
     );
 };
-export default HomePage;
+export default UpcomingMoviesPage;
