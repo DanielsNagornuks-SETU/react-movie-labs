@@ -14,11 +14,24 @@ export function getMovies() {
         });
 };
 
-export function getMovie(id) {
+export function getMovie(args) {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
     return fetch(
         `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    ).then(res => res.json());
+    ).then((response) => {
+        if (!response.ok) {
+            return response.json().then((error) => {
+                throw new Error(error.status_message || "Something went wrong");
+            });
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
 };
+
 
 export function getGenres() {
     return fetch(
@@ -39,20 +52,39 @@ export function getGenres() {
 };
 
 
-export function getMovieImages(id) {
+export function getMovieImages({ queryKey }) {
+    const [, idPart] = queryKey;
+    const { id } = idPart;
     return fetch(
         `https://api.themoviedb.org/3/movie/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    )
-        .then((res) => res.json())
-        .then((json) => json.posters);
-};
-
-export function getMovieReviews(id) {
-    return fetch(
-        `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    )
-        .then((res) => res.json())
-        .then((json) => {
-            return json.results;
+    ).then((response) => {
+        if (!response.ok) {
+            return response.json().then((error) => {
+                throw new Error(error.status_message || "Something went wrong");
+            });
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
         });
 };
+
+export function getMovieReviews({ queryKey }) {
+    const [, idPart] = queryKey;
+    const { id } = idPart;
+    return fetch(
+        `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+        if (!response.ok) {
+            return response.json().then((error) => {
+                throw new Error(error.status_message || "Something went wrong");
+            });
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+
