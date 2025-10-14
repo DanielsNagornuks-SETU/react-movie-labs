@@ -1,4 +1,4 @@
-import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 import { getUpcomingMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
@@ -31,7 +31,7 @@ function UpcomingMoviesPage(props) {
             title="Upcoming Movies"
             movies={movies}
             action={(movie) => {
-                return <AddToFavoritesIcon movie={movie} />
+                return <AddToWatchlistIcon movie={movie} />
             }}
         />
     );
