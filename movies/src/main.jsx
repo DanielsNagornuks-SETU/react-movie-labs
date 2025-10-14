@@ -1,4 +1,3 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router";
 import HomePage from "./pages/homePage";
@@ -9,6 +8,7 @@ import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import MoviesContextProvider from "./contexts/moviesContext";
+import AddMovieReviewPage from './pages/addMovieReviewPage';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -27,6 +27,7 @@ function App() {
                 <SiteHeader />
                 <MoviesContextProvider>
                     <Routes>
+                        <Route path="/reviews/form" element={<AddMovieReviewPage />} />
                         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
                         <Route path="/reviews/:id" element={<MovieReviewPage />} />
                         <Route path="/movies/:id" element={<MoviePage />} />
