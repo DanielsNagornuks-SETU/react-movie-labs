@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
+import LanguageIcon from '@mui/icons-material/Language';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
@@ -8,7 +9,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from "../movieReviews"
+import MovieReviews from "../movieReviews";
 
 const root = {
     display: "flex",
@@ -57,6 +58,7 @@ function MovieDetails({ movie }) {
                     label={`${movie.vote_average} (${movie.vote_count})`}
                 />
                 <Chip label={`Released: ${movie.release_date}`} />
+                <Chip icon={<LanguageIcon />} label={`Original Language: ${movie.original_language}`} />
             </Paper>
             <Paper
                 component="ul"
