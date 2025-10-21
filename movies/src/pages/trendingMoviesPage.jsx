@@ -1,14 +1,14 @@
 import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
-import { getUpcomingMovies } from "../api/tmdb-api";
+import { getTrendingMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 
-function UpcomingMoviesPage(props) {
+function TrendingMoviesPage(props) {
 
     const { data, error, isPending, isError } = useQuery({
-        queryKey: ['upcoming'],
-        queryFn: getUpcomingMovies,
+        queryKey: ['trending'],
+        queryFn: getTrendingMovies,
     })
 
     if (isPending) {
@@ -28,7 +28,7 @@ function UpcomingMoviesPage(props) {
 
     return (
         <PageTemplate
-            title="Upcoming Movies"
+            title="Trending Movies"
             movies={movies}
             action={(movie) => {
                 return <AddToWatchlistIcon movie={movie} />
@@ -36,4 +36,4 @@ function UpcomingMoviesPage(props) {
         />
     );
 };
-export default UpcomingMoviesPage;
+export default TrendingMoviesPage;
