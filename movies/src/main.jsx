@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Navigate, Routes } from "react-router";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
+import MoviesWatchlistPage from "./pages/moviesWatchlistPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import TrendingMoviesPage from "./pages/trendingMoviesPage";
@@ -33,6 +34,7 @@ function App() {
                     <Routes>
                         <Route path="/reviews/form" element={<AddMovieReviewPage />} />
                         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+                        <Route path="/movies/watchlist" element={<MoviesWatchlistPage />} />
                         <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
                         <Route path="/movies/trending" element={<TrendingMoviesPage />} />
                         <Route path="/movies/now_playing" element={<NowPlayingMoviesPage />} />

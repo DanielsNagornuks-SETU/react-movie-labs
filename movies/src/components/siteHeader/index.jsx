@@ -34,7 +34,7 @@ function SiteHeader() {
 
     const additionalMenuOptions = [
         { label: "Favorites", path: "/movies/favorites" },
-        { label: "Playlist", path: "/movies/playlist" }
+        { label: "Playlist", path: "/movies/watchlist" }
     ];
 
     function handleMenuSelect(pageURL) {
