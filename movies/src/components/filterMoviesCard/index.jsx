@@ -34,7 +34,7 @@ export default function FilterMoviesCard(props) {
     if (isError) {
         return <h1>{error.message}</h1>;
     }
-    
+
     const genres = data.genres;
     if (genres[0].name !== "All") {
         genres.unshift({ id: "0", name: "All" });
@@ -56,7 +56,8 @@ export default function FilterMoviesCard(props) {
     return (
         <Card
             sx={{
-                backgroundColor: "rgb(204, 204, 0)"
+                backgroundColor: "#1976d2",
+                color: "#fbf3f5"
             }}
             variant="outlined">
             <CardContent>
@@ -73,24 +74,24 @@ export default function FilterMoviesCard(props) {
                     value={props.titleFilter}
                     onChange={handleTextChange}
                 />
-                <FormControl sx={{ ...formControl }}>
-                    <InputLabel id="genre-label">Genre</InputLabel>
-                    <Select
-                        labelId="genre-label"
-                        id="genre-select"
-                        defaultValue=""
-                        value={props.genreFilter}
-                        onChange={handleGenreChange}
-                    >
-                        {genres.map((genre) => {
-                            return (
-                                <MenuItem key={genre.id} value={genre.id}>
-                                    {genre.name}
-                                </MenuItem>
-                            );
-                        })}
-                    </Select>
-                </FormControl>
+                <TextField
+                    sx={{ ...formControl }}
+                    label="Genre"
+                    labelId="genre-label"
+                    defaultValue=""
+                    select
+                    value={props.genreFilter}
+                    onChange={handleGenreChange}
+                    variant="filled"
+                >
+                    {genres.map((genre) => {
+                        return (
+                            <MenuItem key={genre.id} value={genre.id}>
+                                {genre.name}
+                            </MenuItem>
+                        );
+                    })}
+                </TextField>
             </CardContent>
             <CardMedia
                 sx={{ height: 300 }}
