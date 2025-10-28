@@ -10,6 +10,8 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
+import ActorCard from "../actorCard";
+import Grid from "@mui/material/Grid";
 
 const root = {
     display: "flex",
@@ -17,61 +19,59 @@ const root = {
     flexWrap: "wrap",
     listStyle: "none",
     padding: 1.5,
-    margin: 0,
+    margin: 1,
 };
 const chip = { margin: 0.5 };
 
 function MovieDetails({ movie }) {
     const [drawerOpen, setDrawerOpen] = useState(false);
-
     return (
         <>
-            <Typography variant="h5" component="h3">
-                Overview
-            </Typography>
-
-            <Typography variant="h6" component="p">
-                {movie.overview}
-            </Typography>
-
-            <Paper
-                component="ul"
-                sx={{ ...root }}
-            >
-                <li>
-                    <Chip label="Genres" sx={{ ...chip }} color="primary" />
-                </li>
-                {movie.genres.map((g) => (
-                    <li key={g.name}>
-                        <Chip label={g.name} sx={{ ...chip }} />
-                    </li>
-                ))}
+            <Paper sx={{ ...root }}>
+                <Typography variant="h5" component="h3" sx={{ fontWeight: "bold" }}>
+                    Overview
+                </Typography>
+                <Typography variant="h6" component="p">
+                    {movie.overview}
+                </Typography>
             </Paper>
-            <Paper component="ul" sx={{ ...root }}>
-                <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
-                <Chip
-                    icon={<MonetizationIcon />}
-                    label={`${movie.revenue.toLocaleString()}`}
-                />
-                <Chip
-                    icon={<StarRate />}
-                    label={`${movie.vote_average} (${movie.vote_count})`}
-                />
-                <Chip label={`Released: ${movie.release_date}`} />
-                <Chip icon={<LanguageIcon />} label={`Original Language: ${movie.original_language}`} />
-            </Paper>
-            <Paper
-                component="ul"
-                sx={{ ...root }}
-            >
-                <li>
-                    <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
-                </li>
-                {movie.production_countries.map((pc) => (
-                    <li key={pc.name}>
-                        <Chip label={pc.name} sx={{ ...chip }} />
+            <Paper sx={{ padding: 1.5, margin: 1 }}>
+                <Typography variant="h5" component="h3" sx={{ fontWeight: "bold", textAlign: "center" }}>
+                    Details
+                </Typography>
+                <Typography component="ul" sx={{ ...root, padding: 0.5 }} >
+                    <li>
+                        <Chip label="Genres" sx={{ ...chip }} color="primary" />
                     </li>
-                ))}
+                    {movie.genres.map((g) => (
+                        <li key={g.name}>
+                            <Chip label={g.name} sx={{ ...chip }} />
+                        </li>
+                    ))}
+                </Typography>
+                <Typography component="ul" sx={{ ...root, padding: 0.5 }}>
+                    <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+                    <Chip
+                        icon={<MonetizationIcon />}
+                        label={`${movie.revenue.toLocaleString()}`}
+                    />
+                    <Chip
+                        icon={<StarRate />}
+                        label={`${movie.vote_average} (${movie.vote_count})`}
+                    />
+                    <Chip label={`Released: ${movie.release_date}`} />
+                    <Chip icon={<LanguageIcon />} label={`Original Language: ${movie.original_language}`} />
+                </Typography>
+                <Typography component="ul" sx={{ ...root, padding: 0.5 }} >
+                    <li>
+                        <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
+                    </li>
+                    {movie.production_countries.map((pc) => (
+                        <li key={pc.name}>
+                            <Chip label={pc.name} sx={{ ...chip }} />
+                        </li>
+                    ))}
+                </Typography>
             </Paper>
             <Fab
                 color="secondary"
@@ -89,6 +89,21 @@ function MovieDetails({ movie }) {
             <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <MovieReviews movie={movie} />
             </Drawer>
+
+            <Paper sx={{ ...root }}>
+                <Typography variant="h5" component="h3" sx={{ fontWeight: "bold" }}>
+                    Cast
+                </Typography>
+                <Grid container >
+                    {movie.credits.cast.map((actor) => (
+                        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+                            <ActorCard actor={actor} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Paper>
+
+
         </>
     );
 };
