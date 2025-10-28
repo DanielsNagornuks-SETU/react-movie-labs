@@ -7,7 +7,7 @@ import img from "../../images/actor-image-placeholder.png"
 import { Link } from "react-router";
 import Button from "@mui/material/Button";
 
-export default function ActorCard({ actor }) {
+export default function ActorPaper({ actor }) {
 
     return (
         <Card sx={{ margin: 1 }}>

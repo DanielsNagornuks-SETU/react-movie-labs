@@ -10,7 +10,7 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
-import ActorCard from "../actorCard";
+import ActorPaper from "../actorPaper";
 import Grid from "@mui/material/Grid";
 
 const root = {
@@ -21,6 +21,15 @@ const root = {
     padding: 1.5,
     margin: 1,
 };
+
+const papers = {
+    justifyContent: "center",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: 1.5,
+    margin: 1,
+}
+
 const chip = { margin: 0.5 };
 
 function MovieDetails({ movie }) {
@@ -90,14 +99,14 @@ function MovieDetails({ movie }) {
                 <MovieReviews movie={movie} />
             </Drawer>
 
-            <Paper sx={{ ...root }}>
-                <Typography variant="h5" component="h3" sx={{ fontWeight: "bold" }}>
+            <Paper sx={{ ...papers }}>
+                <Typography variant="h5" component="h3" sx={{ fontWeight: "bold", textAlign: "center" }}>
                     Cast
                 </Typography>
                 <Grid container >
                     {movie.credits.cast.map((actor) => (
                         <Grid key={actor.id} size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
-                            <ActorCard actor={actor} />
+                            <ActorPaper actor={actor} />
                         </Grid>
                     ))}
                 </Grid>
