@@ -28,6 +28,9 @@ function SiteHeader() {
         { label: "Favorites", path: "/movies/favorites" },
         { label: "Upcoming", path: "/movies/upcoming" },
         { label: "Trending", path: "/movies/trending" },
+        { label: "Now Playing", path: "/movies/now_playing" },
+        { label: "Top Rated", path: "/movies/top_rated" },
+        { label: "Popular", path: "/movies/popular" }
     ];
 
     function handleMenuSelect(pageURL) {
