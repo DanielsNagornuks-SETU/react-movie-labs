@@ -96,7 +96,7 @@ function MovieDetails({ movie }) {
                 </Typography>
                 <Grid container >
                     {movie.credits.cast.map((actor) => (
-                        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+                        <Grid key={actor.id} size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
                             <ActorCard actor={actor} />
                         </Grid>
                     ))}

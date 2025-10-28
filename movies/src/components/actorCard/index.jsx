@@ -4,6 +4,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import img from "../../images/actor-image-placeholder.png"
+import { Link } from "react-router";
+import Button from "@mui/material/Button";
 
 export default function ActorCard({ actor }) {
 
@@ -20,8 +22,13 @@ export default function ActorCard({ actor }) {
             />
             <CardContent>
                 <Grid container>
-                    <Typography sx={{ fontSize: 18 }}>{actor.name}</Typography>
+                    <Typography sx={{ fontSize: 20 }}>{actor.name}</Typography>
                 </Grid>
+                <Link to={`/actors/${actor.id}`}>
+                    <Button variant="outlined" size="medium" color="primary" sx={{alignContent: "center"}}>
+                        More Info ...
+                    </Button>
+                </Link>
             </CardContent>
         </Card>
     );
