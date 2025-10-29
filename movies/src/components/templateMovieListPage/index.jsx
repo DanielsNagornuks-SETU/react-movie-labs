@@ -9,6 +9,7 @@ function MovieListPageTemplate({ movies, title, action }) {
     const [genreFilter, setGenreFilter] = useState("0");
     const [sortOption, setSortOption] = useState(0);
     const [sortOrder, setSortOrder] = useState(true);
+    const [ratingRange, setRatingRange] = useState([0, 10]);
     const genreId = Number(genreFilter);
 
     let displayedMovies = movies
@@ -17,6 +18,9 @@ function MovieListPageTemplate({ movies, title, action }) {
         })
         .filter((m) => {
             return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+        })
+        .filter((m) => {
+            return m.vote_average > ratingRange[0] && m.vote_average < ratingRange[1];
         });
 
     displayedMovies.sort((movie1, movie2) => {
@@ -28,11 +32,22 @@ function MovieListPageTemplate({ movies, title, action }) {
     if (!sortOrder) displayedMovies.reverse();
 
     function handleChange(type, value) {
-        console.log(value)
-        if (type === "name") setNameFilter(value);
-        else if (type === "sort") setSortOption(value);
-        else if (type === "order") setSortOrder(value);
-        else setGenreFilter(value);
+        switch (type) {
+            case "name":
+                setNameFilter(value);
+                break;
+            case "sort":
+                setSortOption(value);
+                break;
+            case "order":
+                setSortOrder(value);
+                break;
+            case "rating":
+                setRatingRange(value);
+                break;
+            default:
+                setGenreFilter(value);
+        }
     };
 
     return (
@@ -52,6 +67,7 @@ function MovieListPageTemplate({ movies, title, action }) {
                         genreFilter={genreFilter}
                         sortOption={sortOption}
                         sortOrder={sortOrder}
+                        ratingRange={ratingRange}
                     />
                 </Grid>
                 <MovieList action={action} movies={displayedMovies}></MovieList>

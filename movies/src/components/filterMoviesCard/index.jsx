@@ -2,19 +2,18 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg';
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box'
+import StarRateIcon from "@mui/icons-material/StarRate";
 
 const formControl = {
     margin: 1,
@@ -44,6 +43,10 @@ export default function FilterMoviesCard(props) {
 
     const sortOptions = ["Alphabetically", "Release Date", "Rating"];
 
+    let marks = []
+    for (let i = 0; i <= 10; i++)
+        marks[i] = { value: i, label: i }
+
     function handleChange(e, type, value) {
         props.onUserInput(type, value);
     };
@@ -63,6 +66,10 @@ export default function FilterMoviesCard(props) {
     function handleOrderChange(e) {
         handleChange(e, "order", e.target.checked);
     };
+
+    function handleRatingChange(e) {
+        handleChange(e, "rating", e.target.value);
+    }
 
     return (
         <Card
@@ -128,6 +135,20 @@ export default function FilterMoviesCard(props) {
                         onChange={handleOrderChange} />}
                     label="Ascending Order"
                 />
+                <Box sx={{ ...formControl }}>
+                    <Typography sx={{ color: "black", paddingTop: 0.5, paddingLeft: 1 }}>Rating <StarRateIcon sx={{fontSize: 15}}/></Typography>
+                    <Box sx={{ paddingX: 2 }}>
+                        <Slider
+                            disableSwap
+                            marks={marks}
+                            step={1}
+                            min={0}
+                            max={10}
+                            value={props.ratingRange}
+                            onChange={handleRatingChange}
+                        />
+                    </Box>
+                </Box>
             </CardContent>
             <CardMedia
                 sx={{ height: 300 }}
