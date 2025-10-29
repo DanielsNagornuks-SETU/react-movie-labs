@@ -12,9 +12,11 @@ import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg';
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-const formControl =
-{
+const formControl = {
     margin: 1,
     minWidth: "90%",
     backgroundColor: "rgb(255, 255, 255)"
@@ -40,17 +42,26 @@ export default function FilterMoviesCard(props) {
         genres.unshift({ id: "0", name: "All" });
     }
 
+    const sortOptions = ["Alphabetically", "Release Date", "Rating"];
+
     function handleChange(e, type, value) {
-        e.preventDefault();
         props.onUserInput(type, value);
     };
 
-    function handleTextChange(e, props) {
+    function handleTextChange(e) {
         handleChange(e, "name", e.target.value);
     };
 
     function handleGenreChange(e) {
         handleChange(e, "genre", e.target.value);
+    };
+
+    function handleSortChange(e) {
+        handleChange(e, "sort", e.target.value);
+    }
+
+    function handleOrderChange(e) {
+        handleChange(e, "order", e.target.checked);
     };
 
     return (
@@ -92,19 +103,37 @@ export default function FilterMoviesCard(props) {
                         );
                     })}
                 </TextField>
+                <TextField
+                    sx={{ ...formControl }}
+                    label="Sort"
+                    labelId="sort-label"
+                    defaultValue=""
+                    select
+                    value={props.sortOption}
+                    onChange={handleSortChange}
+                    variant="filled"
+                >
+                    {sortOptions.map((sortOption) => {
+                        return (
+                            <MenuItem key={sortOptions.indexOf(sortOption)} value={sortOptions.indexOf(sortOption)}>
+                                {sortOption}
+                            </MenuItem>
+                        );
+                    })}
+                </TextField>
+                <FormControlLabel
+                    sx={{ ...formControl, color: "black" }}
+                    control={<Checkbox
+                        checked={props.sortOrder}
+                        onChange={handleOrderChange} />}
+                    label="Ascending Order"
+                />
             </CardContent>
             <CardMedia
                 sx={{ height: 300 }}
                 image={img}
                 title="Filter"
             />
-            <CardContent>
-                <Typography variant="h5" component="h1">
-                    <SearchIcon fontSize="large" />
-                    Filter the movies.
-                    <br />
-                </Typography>
-            </CardContent>
         </Card>
     );
 }
